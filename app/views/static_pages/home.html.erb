@@ -1,4 +1,13 @@
-<h1>HOME</h1>
-<p>
-  Welcome to new_app01!
-</p>
+<% provide(:title, "Home") %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) %> | New App01</title>
+  </head>
+  <body>
+    <h1>Home</h1>
+    <p>
+       ようこそ New App01 へ！
+    </p>
+  </body>
+</html>
