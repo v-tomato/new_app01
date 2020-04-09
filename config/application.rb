@@ -22,6 +22,9 @@ module NewApp01
     config.generators.helper              = false
     config.generators.helper_specs        = false
     config.generators.view_specs          = false
+    
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
  
   end
 end
