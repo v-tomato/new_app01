@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      log_in @user
       flash[:success] = "New App01 の世界へようこそ"
       redirect_to @user
     else
@@ -22,8 +23,8 @@ class UsersController < ApplicationController
 private
   # Strong Parameters 7.3.2
   def user_params
-    params.permit(:name, :email, :password, :password_confirmation)
-    # params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    # params.permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
   
 
