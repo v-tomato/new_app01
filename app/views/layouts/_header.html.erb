@@ -9,6 +9,7 @@
             <li ><%= link_to "new_app01画面へ", '#' %></li>
             <li ><%= link_to "プロフィール", current_user %></li>
             <li ><%= link_to "ログアウト", logout_path, method: :delete %></li>
+            <li><%= link_to "プロフィール編集", edit_user_path(current_user) %></li>
           <% else %>
             <li ><%= link_to "新しくはじめる", signup_path %></li>
             <li ><%= link_to "ログイン", login_path %></li>

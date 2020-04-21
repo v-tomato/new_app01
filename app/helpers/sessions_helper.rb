@@ -45,5 +45,20 @@ module SessionsHelper
     cookies.permanent.signed[:user_id] = user.id
     cookies.permanent[:remember_token] = user.remember_token
   end
-
+  
+  # 渡されたユーザーがログイン済みユーザーであればtrueを返す
+  def current_user?(user)
+    user == current_user
+  end
+  
+  # 直前のリンクを記憶する 10.2.3 #11
+  def store_location
+    session[:forwarding_url] = request.original_url if request.get?
+  end
+  
+  # 記憶したリンクか任意のリンクにリダイレクトする 10.2.3 #11
+  def redirect_back_or(default)
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url) #次回ログインしたときに保護されたページに転送されることを防ぐ
+  end
 end
