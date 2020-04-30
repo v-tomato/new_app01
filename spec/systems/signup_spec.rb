@@ -27,8 +27,8 @@ RSpec.describe "Signups", type: :system do
 
   it "is valid because it fulfils form information" do
     visit signup_path
-    expect { submit_with_valid_information }.to change(User, :count).by(1)
-    expect(current_path).to eq user_path(1)
-    expect(page).not_to have_selector '#error_explanation'
+    submit_with_valid_information
+    expect(current_path).to eq root_path
+    expect(page).to have_selector '.alert-info'
   end
 end

@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe "UsersLogins", type: :request do
+  include SessionsHelper
 
   let(:user) { create(:user) }
-  
+  let(:no_activation_user) { create(:no_activation_user) }
+
   def post_invalid_information
     post login_path, params: {
       session: {
@@ -12,19 +14,55 @@ RSpec.describe "UsersLogins", type: :request do
       }
     }
   end
-  
-  # 10でのテスト
-  # ログインのメソッド
-  def post_valid_information(remember_me = 0)
+
+  def post_valid_information(login_user, remember_me = 0)
     post login_path, params: {
       session: {
-        email: user.email,
-        password: user.password,
+        email: login_user.email,
+        password: login_user.password,
         remember_me: remember_me
       }
     }
   end
-  
+
+  describe "GET /login" do
+    it "fails having a danger flash message" do
+      get login_path
+      post_invalid_information
+      expect(flash[:danger]).to be_truthy
+      expect(is_logged_in?).to be_falsey
+      expect(request.fullpath).to eq '/login'
+    end
+
+    it "fails because they have not activated account" do
+      get login_path
+      post_valid_information(no_activation_user)
+      expect(flash[:danger]).to be_truthy
+      expect(is_logged_in?).to be_falsey
+      follow_redirect!
+      expect(request.fullpath).to eq '/'
+    end
+
+    it "succeeds having no danger flash message" do
+      get login_path
+      post_valid_information(user)
+      expect(flash[:danger]).to be_falsey
+      expect(is_logged_in?).to be_truthy
+      follow_redirect!
+      expect(request.fullpath).to eq '/users/1'
+    end
+  end
+    
+    it "is valid signup information" do
+      get signup_path
+      expect { post_valid_information }.to change(User, :count).by(1)
+      expect(is_logged_in?).to be_falsey
+      follow_redirect!
+      expect(request.fullpath).to eq '/'
+      expect(flash[:info]).to be_truthy
+    end
+    #ここまで12
+    
   it "succeeds logout" do
         get login_path
         post_valid_information
