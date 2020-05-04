@@ -4,6 +4,7 @@ class UserMailer < ApplicationMailer
     @user = user
     mail to: user.email, subject: "【重要】New App01よりアカウント有効化のためのメールを届けました"
   end
+  
 
   # この部分は次章
   def password_reset

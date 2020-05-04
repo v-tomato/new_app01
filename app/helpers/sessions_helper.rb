@@ -17,6 +17,7 @@ module SessionsHelper
       end
     end
   end
+
   
    # ユーザーがログインしていればtrue、その他ならfalseを返す
   def logged_in?

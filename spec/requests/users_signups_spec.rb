@@ -33,11 +33,12 @@ RSpec.describe "UsersSignups", type: :request do
     end
 
     it "is valid signup information" do
-      get signup_path
-      expect { post_valid_information }.to change(User, :count).by(1)
-      expect(is_logged_in?).to be_truthy
-      follow_redirect!
-      expect(request.fullpath).to eq '/users/1'
+     get signup_path
+     expect { post_valid_information }.to change(User, :count).by(1)
+     expect(is_logged_in?).to be_falsey
+     follow_redirect!
+     expect(request.fullpath).to eq '/'
+     expect(flash[:info]).to be_truthy
     end
   end
 end

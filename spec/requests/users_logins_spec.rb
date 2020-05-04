@@ -25,6 +25,7 @@ RSpec.describe "UsersLogins", type: :request do
     }
   end
 
+  
   describe "GET /login" do
     it "fails having a danger flash message" do
       get login_path
@@ -51,21 +52,10 @@ RSpec.describe "UsersLogins", type: :request do
       follow_redirect!
       expect(request.fullpath).to eq '/users/1'
     end
-  end
-    
-    it "is valid signup information" do
-      get signup_path
-      expect { post_valid_information }.to change(User, :count).by(1)
-      expect(is_logged_in?).to be_falsey
-      follow_redirect!
-      expect(request.fullpath).to eq '/'
-      expect(flash[:info]).to be_truthy
-    end
-    #ここまで12
-    
-  it "succeeds logout" do
+
+      it "succeeds logout" do
         get login_path
-        post_valid_information
+        post_valid_information(user)
         expect(is_logged_in?).to be_truthy
         follow_redirect!
         expect(request.fullpath).to eq '/users/1'
@@ -75,94 +65,43 @@ RSpec.describe "UsersLogins", type: :request do
         expect(request.fullpath).to eq '/'
       end
 
-# 　二度ログアウトできたとして、それでもエラーは起こらないか
-  it "does not log out twice" do
-    get login_path
-    post_valid_information(0)
-    expect(is_logged_in?).to be_truthy
-    follow_redirect!
-    expect(request.fullpath).to eq '/users/1'
-    delete logout_path
-    expect(is_logged_in?).to be_falsey
-    follow_redirect!
-    expect(request.fullpath).to eq '/'
-    delete logout_path
-    follow_redirect!
-    expect(request.fullpath).to eq '/'
-  end
-  
-  
-# 　チェックボックスがオンの時、トークンが作られているか
-  it "succeeds remember_token because of check remember_me" do
-    get login_path
-    post_valid_information(1)
-    expect(is_logged_in?).to be_truthy
-    expect(cookies[:remember_token]).not_to be_nil
-  end
-
-# 　チェックボックスがオフの時、トークンが作られていないか
-  it "has no remember_token because of check remember_me" do
-    get login_path
-    post_valid_information(0)
-    expect(is_logged_in?).to be_truthy
-    expect(cookies[:remember_token]).to be_nil
-  end
-  
-# 　チェックボックスがオンの時、ログアウト後のログインでトークンが残っていないか
-  it "has no remember_token when users logged out and logged in" do
-    get login_path
-    post_valid_information(1)
-    expect(is_logged_in?).to be_truthy
-    expect(cookies[:remember_token]).not_to be_empty
-    delete logout_path
-    expect(is_logged_in?).to be_falsey
-    expect(cookies[:remember_token]).to be_empty
-  end
-  
-  
-  
-  #追加前のテスト
-  describe "GET /login" do
-    context "invalid information" do
-      it "fails having a danger flash message" do
+      it "does not log out twice" do
         get login_path
-        post login_path, params: {
-          session: {
-            email: "",
-            password: ""
-          }
-        }
-        expect(flash[:danger]).to be_truthy
-        expect(is_logged_in?).to be_falsey
-      end
-    end
-    
-    context "valid information" do
-      it "succeeds having no danger flash message" do
-        get login_path
-        post login_path, params: {
-          session: {
-            email: user.email,
-            password: user.password
-          }
-        }
-        expect(flash[:danger]).to be_falsey
+        post_valid_information(user)
         expect(is_logged_in?).to be_truthy
-      end
-    
-
-      it "succeeds login and logout" do
-        get login_path
-        post login_path, params: {
-          session: {
-            email: user.email,
-            password: user.password
-          }
-        }
-        expect(is_logged_in?).to be_truthy
+        follow_redirect!
+        expect(request.fullpath).to eq '/users/1'
         delete logout_path
         expect(is_logged_in?).to be_falsey
+        follow_redirect!
+        expect(request.fullpath).to eq '/'
+        delete logout_path
+        follow_redirect!
+        expect(request.fullpath).to eq '/'
+      end
+
+      it "succeeds remember_token because of check remember_me" do
+        get login_path
+        post_valid_information(user, remember_me = 1)
+        expect(is_logged_in?).to be_truthy
+        expect(cookies[:remember_token]).not_to be_empty
+      end
+
+      it "has no remember_token because of check remember_me" do
+        get login_path
+        post_valid_information(user, remember_me = 0)
+        expect(is_logged_in?).to be_truthy
+        expect(cookies[:remember_token]).to be_nil
+      end
+
+      it "has no remember_token when users logged out and logged in" do
+        get login_path
+        post_valid_information(user, remember_me = 1)
+        expect(is_logged_in?).to be_truthy
+        expect(cookies[:remember_token]).not_to be_empty
+        delete logout_path
+        expect(is_logged_in?).to be_falsey
+        expect(cookies[:remember_token]).to be_empty
       end
     end
-  end
 end
