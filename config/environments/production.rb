@@ -69,7 +69,7 @@ Rails.application.configure do
   # 本番環境の設定・メイラー
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  host = 'floating-brushlands-59840.herokuapp.com'
+  host = 'desolate-tor-49424.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
