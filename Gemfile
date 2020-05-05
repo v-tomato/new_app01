@@ -15,6 +15,8 @@ gem 'jbuilder',     '2.7.0'
 
 gem 'pry-rails'
 
+gem 'rails-controller-testing'
+
 group :development, :test do
   # rspec導入
   gem 'rspec-rails'
