@@ -20,6 +20,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @microposts = @user.microposts.page(params[:page]).per(10)
+    # per(10)は1ページの表示数を表す
   end
   
   def edit
@@ -36,22 +38,18 @@ class UsersController < ApplicationController
       redirect_to edit_user_path(@user)
     end
   end
+  
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "ユーザーを削除しました"
+    redirect_to users_url
+  end
 
 
   private
     # Strong Parameters 7.3.2
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
-    
-    # before_action
-    # ログイン済みユーザーかどうか確認
-    def logged_in_user
-      #真偽値を返す
-      unless logged_in?   
-      store_location 
-      flash[:warning] = "ログインして下さい"
-      redirect_to login_url
     end
     
     # 正しいユーザーかどうか確認 10.2.2 #11
@@ -62,4 +60,3 @@ class UsersController < ApplicationController
     end
   end
   
-end

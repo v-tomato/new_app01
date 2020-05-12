@@ -17,11 +17,27 @@ gem 'pry-rails'
 
 gem 'rails-controller-testing'
 
+# 13
+gem 'faker'
+
+# 14,ページネーション機能
+gem 'kaminari'
+gem 'kaminari-bootstrap'
+
+# rails 14.4 画像アップロード
+gem 'carrierwave',             '1.2.2'
+gem 'mini_magick',             '4.7.0'
+
+  
+
 group :development, :test do
   # rspec導入
   gem 'rspec-rails'
   gem 'sqlite3', '1.3.13'
   gem 'byebug',  '9.0.6', platform: :mri
+  # datebase_cleaner導入
+  # gem 'database_cleaner'
+  # gem "factory_bot_rails"
 end
 
 group :development do
@@ -48,6 +64,8 @@ end
 
 group :production do
   gem 'pg', '0.20.0'
+  # rails 14.4 画像アップロード
+  gem 'fog', '1.42'
 end
 
 # Windows環境ではtzinfo-dataというgemを含める必要があります

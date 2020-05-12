@@ -141,4 +141,11 @@ RSpec.describe User, type: :model do
       end
     end
   end
+  
+  # ユーザが削除されたら投稿も削除されるか,14
+  it "destroys assosiated microposts" do
+    user.save
+    user.microposts.create!(memo: "Lorem Ipsum")
+    expect{ user.destroy }.to change{ Micropost.count }.by(-1)
+  end
 end
