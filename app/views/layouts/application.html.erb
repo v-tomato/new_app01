@@ -15,11 +15,11 @@
     <% flash.each do |message_type, message| %>
       <%= tag.div message, class: "alert alert-#{message_type}" %>
     <% end %>
-    <%= yield %>
-    <!--<%= render 'layouts/footer' %>-->
+      <%= yield %>
+    <%= render 'layouts/footer' %>
     <!--<%= debug(params) if Rails.env.development? %>-->
     <div class="container">
-    <!--<%= yield %>-->
+    <%= yield %>
     </div>
   </body>
 </html>
