@@ -1,12 +1,30 @@
-<header class="navbar navbar-fixed-top" style="background-color: #faf0e6;">
+<footer class="navbar navbar-fixed-top" style="background-color: #faf0e6;">
+    <!--<div class="container">-->
+    <!--  <nav>-->
+    <!--    <ul class="nav navbar-nav navbar-right" >-->
+    <!--      <li><%= link_to "Home",   root_path %></li>-->
+    <!--      <li><%= link_to "Help",   help_path %></li>-->
+    <!--      <li><%= link_to "Log in", login_path %></li>-->
+    <!--      <li><%= link_to "About", about_path %></li>-->
+    <!--    </ul>-->
+    <!--  </nav>-->
+    <!--</div>-->
     <div class="container">
       <nav>
         <ul class="nav navbar-nav navbar-right" >
           <li><%= link_to "Home",   root_path %></li>
           <li><%= link_to "Help",   help_path %></li>
-          <li><%= link_to "Log in", login_path %></li>
           <li><%= link_to "About", about_path %></li>
+          <% if logged_in? %>
+            <li ><%= link_to "プロフィール", current_user %></li>
+            <li ><%= link_to "メモの編集", edit_micropost_path %></li>
+            <li ><%= link_to "ログアウト", logout_path, method: :delete %></li>
+            <li><%= link_to "プロフィール編集", edit_user_path(current_user) %></li>
+          <% else %>
+            <li ><%= link_to "新しくはじめる", signup_path %></li>
+            <li ><%= link_to "ログイン", login_path %></li>
+          <% end %>
         </ul>
       </nav>
     </div>
-</header>
+</footer>
