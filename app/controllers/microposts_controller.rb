@@ -15,7 +15,7 @@ class MicropostsController < ApplicationController
   end
 
   def edit
-    @micropost = current_user.microposts.find_by(id: params[:id]) || nil
+    @microposts = current_user.microposts.find_by(id: params[:id]) || nil
     if @micropost.nil?
       flash[:warning] = "編集権限がありません"
       redirect_to root_url
