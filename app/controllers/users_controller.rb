@@ -39,10 +39,19 @@ class UsersController < ApplicationController
     end
   end
   
+  # def destroy
+  #   User.find(params[:id]).destroy
+  #   flash[:success] = "ユーザーを削除しました"
+  #   redirect_to users_url
+  # end
+  
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "ユーザーを削除しました"
-    redirect_to users_url
+    @user = User.find(params[:id])
+    if params[:microposts][:reset_time] == '1'
+      @user.microposts.destroy_all
+      flash[:success] = '記録時間とメモをリセットしました'
+      redirect_to edit_user_path(@user)
+    end
   end
 
 
