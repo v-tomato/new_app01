@@ -1,6 +1,6 @@
 <div class="container micropost-container">
   <h1>Form</h1>
-  <%= form_with(model: @micropost, url: microposts_path, local: true) do |form| %>
+  <%= form_with(model: Micropost.new, url: microposts_path, local: true) do |form| %>
     <%= render 'shared/error_messages', object: form.object %>
     <div class="form-group">
       <%= form.number_field :time, class: 'form-control', placeholder: "時間（分）を入力してください" %>
