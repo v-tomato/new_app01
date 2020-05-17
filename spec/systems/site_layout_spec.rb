@@ -12,10 +12,10 @@ RSpec.describe "SiteLayouts", type: :system do
       expect(page).to have_link 'Help', href: help_path
     end
 
-    # it "contains login link" do
-    #   visit root_path
-    #   expect(page).to have_link 'Login', href: login_path
-    # end
+    it "contains login link" do
+      visit root_path
+      expect(page).to have_link 'ログイン', href: login_path
+    end
     
     it "contains about link" do
       visit root_path

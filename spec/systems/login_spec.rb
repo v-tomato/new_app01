@@ -60,7 +60,7 @@ RSpec.describe "Logins", type: :system do
       find(".form-submit").click
       expect(current_path).to eq user_path(1)
       
-      # expect(page).to have_selector '.btn-logout-extend'
+      expect(page).not_to have_selector '.btn-logout-extend'
       expect(page).not_to have_selector '.btn-login-extend'
       click_on 'ログアウト'
       expect(current_path).to eq root_path
