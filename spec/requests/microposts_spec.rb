@@ -58,6 +58,7 @@ RSpec.describe "Microposts", type: :request do
     #他ユーザの投稿削除が無効か
     it "does not destroy a micropost when other users logged in" do
       log_in_as(user)
+      
       get user_path(user)
       post_valid_information
       follow_redirect!

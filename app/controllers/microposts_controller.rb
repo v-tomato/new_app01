@@ -42,7 +42,6 @@ class MicropostsController < ApplicationController
   private
     def micropost_params
       params.require(:micropost).permit(:memo, :time )
-      # params.permit(:memo, :time )
     end
 
     def correct_user
