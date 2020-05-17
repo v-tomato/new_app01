@@ -15,6 +15,7 @@ class MicropostsController < ApplicationController
     end
   end
 
+  # nilとされてしまう問題部分
   def edit
     @micropost = current_user.microposts.find_by(id: params[:id]) || nil
     if @micropost.nil?
