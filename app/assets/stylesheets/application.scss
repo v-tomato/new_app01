@@ -40,7 +40,7 @@ body {
 //   position: absolute;/*←絶対位置*/
 //   bottom: 0; /*下に固定*/
 // }
-// header
+
 
 .navbar-extend {
   margin-bottom: 0;
@@ -174,9 +174,15 @@ body {
   .log-list {
     border-left: 1px solid $lantern-dark-white;
   }
+  
+  
 }
 
 @media (min-width: 768px) {
+  .footer-li{
+    font-size: 4.0rem;
+  }
+  
   .log-timestamp-inline {
     visibility: hidden;
   }
