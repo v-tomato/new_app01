@@ -7,7 +7,7 @@ class MicropostsController < ApplicationController
     @user = current_user
     @micropost = current_user.microposts.build(micropost_params) if logged_in?
     @microposts = @user.microposts.page(params[:page]).per(10)
-
+    
     if @micropost.save
       redirect_to current_user
     else
@@ -17,7 +17,7 @@ class MicropostsController < ApplicationController
 
   # nilとされてしまう問題部分
   def edit
-    @micropost = current_user.microposts.find_by(id: params[:id]) || nil
+    
     if @micropost.nil?
       flash[:warning] = "編集権限がありません"
       redirect_to root_url
