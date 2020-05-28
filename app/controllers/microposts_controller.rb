@@ -20,7 +20,7 @@ class MicropostsController < ApplicationController
     
     if @micropost.nil?
       flash[:warning] = "編集権限がありません"
-      # redirect_to root_url
+      redirect_to root_url
     end
   end
 
