@@ -18,10 +18,10 @@ class MicropostsController < ApplicationController
   # nilとされてしまう問題部分
   def edit
     
-    if @micropost.nil?
-      # flash[:warning] = "編集権限がありません"
-      # redirect_to root_url
-    end
+    # if @micropost.nil?
+    #   flash[:warning] = "編集権限がありません"
+    #   redirect_to root_url
+    # end
   end
 
   def update
