@@ -1,11 +1,10 @@
 <% provide(:title, 'メモ編集') %>
 <div class="container micropost-edit-container">
   <div class="edit-titles">
-    
     <h1 class="title edit-micropost-title">メモ編集</h1>
   </div>
   <%= form_with(model: @micropost, url: micropost_path, local: true) do |form| %>
-    <%= render 'shared/microposts_error_messages', object: form.object %>
+    <%= render 'shared/error_messages', object: form.object %>
     <div class="form-group">
       <%= form.label :time, '時間' %>
       <%= form.number_field :time, class: 'form-control', placeholder: @micropost.time %>
