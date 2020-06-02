@@ -42,14 +42,14 @@ body {
 // }
 
 
-.navbar-extend {
-  margin-bottom: 0;
-  background-color: $lantern-black;
-  opacity: 0.9;
-  ul li a button {
-    padding: 0.375rem 1.5rem;
-  }
-}
+// .navbar-extend {
+//   margin-bottom: 0;
+//   background-color: $lantern-black;
+//   opacity: 0.9;
+//   ul li a button {
+//     padding: 0.375rem 1.5rem;
+//   }
+// }
 
 .logo-img:hover {
   opacity: 0.6;
@@ -163,11 +163,6 @@ body {
  
 // max-width = 767px
 @media (max-width: 767px) {
-  .nav{
-    font-size: 1rem;
-    line-height: 1;
-  }
-  
   .nav-item-extend {
     margin-top: 0.6rem;
   }
